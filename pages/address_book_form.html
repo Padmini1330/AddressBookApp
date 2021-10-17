@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Person</title>
+    <link rel="stylesheet" href="../css/address_book_form.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header header-content">
+        <div class="logo-content">
+            <img src="../assets/logo.png" alt="logo">
+            <div>
+                <span class="address-text">ADDRESS BOOK</span>
+            </div>
+        </div>
+    </header>
+
+        <div class="form-content">
+            <form action="#" class="form" autocomplete="off" onsubmit="save()" onreset="reset()">
+
+                <div class="form-head">
+                    <h3 class="head-text" style="text-align: center;">PERSON ADDRESS FORM</h3>
+                    <div class="cancel-button">
+                        <a href="home.html">x</a>
+                    </div>
+                </div>
+
+                <div class="form-body">
+                    <div class="row-content">
+                        <label for="name" class="label text">Full Name</label>
+                        <input type="text" class="input" id="name" name="name" required>
+                        <error-output for="text" class="name-error"></error-output>
+                    </div>
+                    <div class="row-content">
+                        <label for="phone-number" class="label text">Phone Number</label>
+                        <input type="tel" class="input" id="phone-number" name="phone-number" required>
+                        <error-output for="phone-number" class="number-error"></error-output>
+                    </div>
+                    <div class="row-content">
+                        <label for="address" class="text">Address</label>
+                        <textarea name="address" id="address" cols="50" rows="6" required></textarea>
+                    </div>
+                    <div class="row-content inner-rows">
+                        <div class="columns-content">
+                            <label for="city" class="label text">City</label>
+                            <select name="city" id="city" class="input">
+                                <option value="0">Select City</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Mysore">Mysore</option>
+                            </select>
+                        </div>
+                        <div class="columns-content">
+                            <label for="state" class="text label">State</label>
+                            <select name="state" id="state" class="input">
+                                <option value="0">Select State</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+                        <div class="columns-content zip">
+                            <label for="zip-code" class="text label">Zip Code</label>
+                            <input type="tel" class="input" id="zip-code" name="zip-code" maxlength="999999">
+                        </div>
+                    </div>
+                    <div class="buttonParent">
+                        <div class="submit-reset">
+                            <button type="submit" class="submitButton button" id="submitButton">Add</button>
+                            <button type="reset" class="resetButton button">Reset</button>
+                        </div>
+                    </div>                    
+                </div>
+            </form>
+        </div>
+</body>
+
+</html>
