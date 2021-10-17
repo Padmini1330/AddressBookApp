@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Person</title>
+    <title>Address Book Form</title>
     <link rel="stylesheet" href="../css/address_book_form.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
@@ -34,12 +34,12 @@
                     <div class="row-content">
                         <label for="name" class="label text">Full Name</label>
                         <input type="text" class="input" id="name" name="name" required>
-                        <error-output for="text" class="name-error"></error-output>
+                        <error-output for="name" class="text-error" id="text-error"></error-output>
                     </div>
                     <div class="row-content">
                         <label for="phone-number" class="label text">Phone Number</label>
-                        <input type="tel" class="input" id="phone-number" name="phone-number" required>
-                        <error-output for="phone-number" class="number-error"></error-output>
+                        <input type="tel" class="input" id="phonenumber" name="phonenumber" required>
+                        <error-output for="tel" class="tel-error" id="tel-error"></error-output>
                     </div>
                     <div class="row-content">
                         <label for="address" class="text">Address</label>
@@ -72,8 +72,9 @@
                             </select>
                         </div>
                         <div class="columns-content zip">
-                            <label for="zip-code" class="text label">Zip Code</label>
-                            <input type="tel" class="input" id="zip-code" name="zip-code" maxlength="999999">
+                            <label for="zip" class="text label">Zip Code</label>
+                            <input type="tel" class="input" id="zip" name="zip" maxlength="999999" required/>
+                            <error-output id="zip-error" class="zip-error" for="zip"></error-output>
                         </div>
                     </div>
                     <div class="buttonParent">
@@ -85,6 +86,8 @@
                 </div>
             </form>
         </div>
+        <script defer src="../js/person_data.js"></script>
+        <script defer src="../js/address_book_form.js"></script>
 </body>
 
 </html>
