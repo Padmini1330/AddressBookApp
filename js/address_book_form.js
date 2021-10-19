@@ -132,7 +132,34 @@ const createAndUpdateStorage = (contact) => {
     console.log(contactList);
     localStorage.setItem("ContactList", JSON.stringify(contactList));
   }
-
+  const resetForm = () => {
+    setValue("#name", "");
+    setValue("#phonenumber", "");
+    setValue("#address", "");
+    setSelectedIndex('#city', 0);
+    setSelectedIndex('#state', 0);
+    setValue("#zip", "");
+    setTextValue(".name-error", "");
+    setTextValue(".tel-error", "");
+    setTextValue(".address-error", "");
+    setTextValue(".zip-error", "");
+  };
+  
+const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
+  };
+  
+const setTextValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.textContent = value;
+  };
+  
+const setSelectedIndex = (id, index) => {
+    const element = document.querySelector(id);
+    element.selectedIndex = index;
+  };
+  
 const getInputValueById = (id) => {
     let value = document.querySelector(id).value;
     return value;
