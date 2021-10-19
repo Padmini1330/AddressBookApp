@@ -86,9 +86,9 @@ function createContact() {
         contact.city = getInputValueById("#city");
         contact.zip = getInputValueById("#zip");
     } 
-    catch (e) 
+    catch (error) 
     {
-        console.log(e);
+        console.log(error);
     }
     alert(contact);
 }
