@@ -79,7 +79,7 @@ error-output {
     border: 1px solid #F5F5F5;
     border-radius: 8px;
     opacity: 1;
-    margin-top: 40px;
+    margin-top: 23px;
     width: 60%;
     
 }
@@ -166,7 +166,6 @@ textarea {
 .inner-rows {
     flex-direction: row;
     flex-wrap: wrap;
-    /* justify-content: space-around; */
 }
 
 select {
@@ -243,43 +242,13 @@ select {
     border-radius: 5px;
     opacity: 1;
 }
-@media only screen and (max-width: 930px) {
 
-    .form-content{
-        width: 50%;
+@media only screen and (max-width: 480px)
+{
+    .form-head ,.head-text
+    {
+        display: flex !important;
+        flex-direction: row !important;
+        font-size: 12px !important;
     }
-
-    .inner-rows {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .columns-content {
-        width: 100%;
-    }
-
-    .buttonParent {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-        padding: 0;
-    }
-
-    .button {
-        min-width: 40%;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 10px 20px;
-
-    }
-
-}
-@media only screen and (max-width: 400px) {
-    .form-content {
-        margin: 0;
-        padding-top: 0;
-        width: 100%;
-    }
-
 }
