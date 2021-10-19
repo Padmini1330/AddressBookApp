@@ -89,8 +89,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 const save = () => {
     try 
     {
-        let contact = new Contact();
-        createContact();
+        let contact=createContact();
         createAndUpdateStorage(contact);
     } 
     catch (error) 
@@ -116,6 +115,7 @@ function createContact()
         console.log(error);
     }
     alert(contact);
+    return contact;
 }
 
 const createAndUpdateStorage = (contact) => {
@@ -129,6 +129,7 @@ const createAndUpdateStorage = (contact) => {
       contactList = [contact];
     }
     alert("Contact Added Sucessfully");
+    console.log(contactList);
     localStorage.setItem("ContactList", JSON.stringify(contactList));
   }
 
