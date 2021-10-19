@@ -14,7 +14,7 @@ class Contact
     }
     set name(value) 
     {
-        const NAME_REGEX = RegExp("^[A-Z]{1}[a-zA-Z]{2,}$");
+        const NAME_REGEX = RegExp("^[A-Z]{1}[a-z]{2,}([ ][A-Z]{1}[a-z]{2,})?$");
         if(NAME_REGEX.test(value)){
             this._name = value;
         }else {
@@ -85,5 +85,5 @@ class Contact
         ', phone number=' + this._phoneNumber + ', address=' + this._address + ', city=' + this._city + 
         ', state=' + this._state + ', zip code=' + this._zip;
     }
-    
+
 }
