@@ -41,7 +41,7 @@ class Contact
     }
     set address(value) 
     {
-        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@,.&\\s]{3,}$');
+        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@*(),.&\\s]{3,}$');
         if (ADDRESS_REGEX.test(value)) 
         {
             this._address = value;
