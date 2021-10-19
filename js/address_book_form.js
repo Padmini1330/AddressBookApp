@@ -32,6 +32,23 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
+    const address = document.querySelector('#address');
+    const addressError = document.querySelector('.address-error');
+    address.addEventListener('input', function () {
+        if (address.value.length == 0) {
+            addressError.textContent = "";
+            document.getElementById('submitButton').disabled = true;
+            return;
+        }
+        try {
+            (new Contact()).address = address.value;
+            addressError.textContent = "";
+        } catch (e) {
+            document.getElementById('submitButton').disabled = true;
+            addressError.textContent = e;
+        }
+    });
+
     const zip = document.querySelector('#zip');
     const zipError = document.querySelector('.zip-error');
     zip.addEventListener('input', function () {
@@ -59,7 +76,8 @@ const save = () => {
 }
 function createContact() {
     let contact = new Contact();
-    try {
+    try 
+    {
         contact.name = getInputValueById('#name');
         contact.id = Math.floor(Math.random() * 100);
         contact.phoneNumber = getInputValueById("#phonenumber");
@@ -67,7 +85,9 @@ function createContact() {
         contact.state = getInputValueById("#state");
         contact.city = getInputValueById("#city");
         contact.zip = getInputValueById("#zip");
-    } catch (e) {
+    } 
+    catch (e) 
+    {
         console.log(e);
     }
     alert(contact);
