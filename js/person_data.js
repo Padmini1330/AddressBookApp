@@ -78,10 +78,12 @@ class Contact
         else throw "Zip code is incorrect";        
     }
 
+
     toString() 
     {
         return 'name=' + this._name + 
         ', phone number=' + this._phoneNumber + ', address=' + this._address + ', city=' + this._city + 
         ', state=' + this._state + ', zip code=' + this._zip;
     }
+    
 }
