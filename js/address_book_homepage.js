@@ -19,7 +19,8 @@ const createInnerHtml = () => {
     <th>Phone Number</th>
     </tr>`;
   let innerHtml = `${headerHtml}`;
-  for (let contact of contactList) {
+  for (const contact of contactList) 
+  {
     innerHtml = `${innerHtml} 
         <tr>
         <td>${contact._name}</td>

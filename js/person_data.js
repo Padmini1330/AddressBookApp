@@ -14,7 +14,6 @@ class Contact
     }
     set name(value) 
     {
-        const NAME_REGEX = RegExp("^[A-Z]{1}[a-z]{2,}([ ][A-Z]{1}[a-z]{2,})?$");
         if(NAME_REGEX.test(value)){
             this._name = value;
         }else {
@@ -28,7 +27,6 @@ class Contact
     }
     set phoneNumber(value) 
     {
-        const PHONE_NUMBER_REGEX = RegExp("^[+][0-9]{2}\\s{1}[7-9]{1}[0-9]{9}$");
         if (PHONE_NUMBER_REGEX.test(value)) 
         {
             this._phoneNumber = value;
@@ -41,7 +39,6 @@ class Contact
     }
     set address(value) 
     {
-        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@*(),.&\\s]{3,}$');
         if (ADDRESS_REGEX.test(value)) 
         {
             this._address = value;
@@ -70,14 +67,12 @@ class Contact
     }
     set zip(value) 
     {
-        const ZIP_REGEX = RegExp("^[0-9]{3}\\s{0,1}[0-9]{3}$");
         if (ZIP_REGEX.test(value)) 
         {
             this._zip = value;
         }
         else throw "Zip code is incorrect";        
     }
-
 
     toString() 
     {
