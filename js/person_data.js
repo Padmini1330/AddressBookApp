@@ -28,7 +28,7 @@ class Contact
     }
     set phoneNumber(value) 
     {
-        const PHONE_NUMBER_REGEX = RegExp("^[0-9]{2}\\s{1}[7-9]{1}[0-9]{9}$");
+        const PHONE_NUMBER_REGEX = RegExp("^[+][0-9]{2}\\s{1}[7-9]{1}[0-9]{9}$");
         if (PHONE_NUMBER_REGEX.test(value)) 
         {
             this._phoneNumber = value;
