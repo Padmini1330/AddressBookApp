@@ -1,13 +1,38 @@
 let contactList;
+
 window.addEventListener("DOMContentLoaded", (event) => {
-  contactList = getContactFromStorage();
-  document.querySelector(".contact-count").textContent = contactList.length;
-  createInnerHtml();
+  if (site_properties.use_local_storage.match("true")) {
+    getContactFromStorage();
+  }
+  else {
+    getContactFromServer();
+  }
+
 });
 
+const processContactDataResponse = () => {
+  document.querySelector(".contact-count").textContent = contactList.length;
+  createInnerHtml();
+  localStorage.removeItem('contactEdit');
+};
+
 const getContactFromStorage = () => {
-  return localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : [];
-}
+  contactList = localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : [];
+  processContactDataResponse();
+};
+
+const getContactFromServer = () => {
+  makeServiceCall("GET", site_properties.server_url, true)
+    .then((responseText) => {
+        contactList = JSON.parse(responseText);
+        processContactDataResponse();
+      })
+    .catch((error) => {
+      console.log("GET Error Status: " + JSON.stringify(error));
+      contactList = [];
+      processContactDataResponse();
+    })
+};
 
 const createInnerHtml = () => {
   if (contactList.length == 0) {
@@ -43,23 +68,25 @@ const createInnerHtml = () => {
 };
 
 const remove = (node) => {
-    let removeContact = contactList.find(contact => contact.id == node.id);
-    if (!removeContact) {
-      return;
-    }
-    const index = contactList.map(contact => contact.id).indexOf(removeContact.id);
-    contactList.splice(index, 1);
-    localStorage.setItem("ContactList", JSON.stringify(contactList));
-    document.querySelector(".contact-count").textContent = contactList.length;
-    createInnerHtml();
-    window.location.replace(site_properties.home_page);
+  let removeContact = contactList.find(contact => contact.id == node.id);
+  if (!removeContact) {
+    return;
   }
-  
-  const update = (node) => {
-    let contactEdit = contactList.find(editContact => editContact.id == node.id);
-    if (!contactEdit) {
-      return;
-    }
-    localStorage.setItem('contactEdit', JSON.stringify(contactEdit));
-    window.location.replace(site_properties.add_contacts_page);
+  const index = contactList
+                .map(contact => contact.id)
+                .indexOf(removeContact.id);
+  contactList.splice(index, 1);
+  localStorage.setItem("ContactList", JSON.stringify(contactList));
+  document.querySelector(".contact-count").textContent = contactList.length;
+  createInnerHtml();
+  window.location.replace(site_properties.home_page);
+};
+
+const update = (node) => {
+  let contactEdit = contactList.find(editContact => editContact.id == node.id);
+  if (!contactEdit) {
+    return;
   }
+  localStorage.setItem('contactEdit', JSON.stringify(contactEdit));
+  window.location.replace(site_properties.add_contacts_page);
+};
