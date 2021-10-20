@@ -6,6 +6,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   validatePhoneNumber();
   validateAddress();
   validateZipcode();
+
   checkForUpdate();
   localStorage.removeItem('contactEdit');
 });
@@ -14,20 +15,20 @@ const validateName = () => {
   const name = document.querySelector("#name");
   name.addEventListener("input", function () {
     if (name.value.length == 0) {
-      setTextValue(".text-error", "");
+      setTextValue(".name-error", "");
       return;
     }
     try {
       checkName(name.value);
-      setTextValue(".text-error", "");
+      setTextValue(".name-error", "");
     } catch (error) {
-      setTextValue(".text-error", error);
+      setTextValue(".name-error", error);
     }
   });
 };
 
 const validatePhoneNumber = () => {
-  const phoneNumber = document.querySelector("#phonenumber");
+  const phoneNumber = document.querySelector("#phoneNumber");
   phoneNumber.addEventListener("input", function () {
     if (phoneNumber.value.length == 0) {
       setTextValue(".tel-error", "");
@@ -133,7 +134,7 @@ const setContactObject = () => {
     contactObj.id = generateId();
   }
   contactObj._name = getInputValueById("#name");
-  contactObj._phoneNumber = getInputValueById("#phonenumber");
+  contactObj._phoneNumber = getInputValueById("#phoneNumber");
   contactObj._address = getInputValueById("#address");
   contactObj._city = getInputValueById("#city");
   contactObj._state = getInputValueById("#state");
@@ -151,12 +152,12 @@ const generateId = () => {
 
 const resetForm = () => {
   setValue("#name", "");
-  setValue("#phonenumber", "");
+  setValue("#phoneNumber", "");
   setValue("#address", "");
   setSelectedIndex('#city', 0);
   setSelectedIndex('#state', 0);
   setValue("#zip", "");
-  setTextValue(".text-error", "");
+  setTextValue(".name-error", "");
   setTextValue(".tel-error", "");
   setTextValue(".address-error", "");
   setTextValue(".zip-error", "");
@@ -174,7 +175,7 @@ const checkForUpdate = () => {
 
 const setForm = () => {
   setValue("#name", contactObj._name);
-  setValue("#phonenumber", contactObj._phoneNumber);
+  setValue("#phoneNumber", contactObj._phoneNumber);
   setValue("#address", contactObj._address);
   setValue("#city", contactObj._city);
   setValue("#state", contactObj._state);
