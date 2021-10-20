@@ -1,13 +1,14 @@
 let contactList;
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  if (site_properties.use_local_storage.match("true")) {
+  if (site_properties.use_local_storage.match("true")) 
+  {
     getContactFromStorage();
   }
-  else {
+  else 
+  {
     getContactFromServer();
   }
-
 });
 
 const processContactDataResponse = () => {
@@ -24,9 +25,9 @@ const getContactFromStorage = () => {
 const getContactFromServer = () => {
   makeServiceCall("GET", site_properties.server_url, true)
     .then((responseText) => {
-        contactList = JSON.parse(responseText);
-        processContactDataResponse();
-      })
+      contactList = JSON.parse(responseText);
+      processContactDataResponse();
+    })
     .catch((error) => {
       console.log("GET Error Status: " + JSON.stringify(error));
       contactList = [];
@@ -35,7 +36,8 @@ const getContactFromServer = () => {
 };
 
 const createInnerHtml = () => {
-  if (contactList.length == 0) {
+  if (contactList.length == 0) 
+  {
     return;
   }
   const headerHtml = `<tr>
@@ -49,7 +51,8 @@ const createInnerHtml = () => {
 
   let innerHtml = `${headerHtml}`;
 
-  for (const contact of contactList) {
+  for (const contact of contactList) 
+  {
     innerHtml = `${innerHtml} 
         <tr>
         <td>${contact._name}</td>
@@ -69,16 +72,31 @@ const createInnerHtml = () => {
 
 const remove = (node) => {
   let removeContact = contactList.find(contact => contact.id == node.id);
-  if (!removeContact) {
+  if (!removeContact) 
+  {
     return;
   }
   const index = contactList
-                .map(contact => contact.id)
-                .indexOf(removeContact.id);
+    .map(contact => contact.id)
+    .indexOf(removeContact.id);
   contactList.splice(index, 1);
-  localStorage.setItem("ContactList", JSON.stringify(contactList));
-  document.querySelector(".contact-count").textContent = contactList.length;
-  createInnerHtml();
+  if (site_properties.use_local_storage.match("true")) 
+  {
+    localStorage.setItem("ContactList", JSON.stringify(contactList));
+    document.querySelector(".contact-count").textContent = contactList.length;
+    createInnerHtml();
+  }
+  else 
+  {
+    const deleteURL = site_properties.server_url + removeContact.id.toString();
+    makeServiceCall("DELETE", deleteURL, false)
+      .then(responseText => {
+        createInnerHtml();
+      })
+      .catch(error => {
+        console.log("DELETE Error Status: " + JSON.stringify(error));
+      })
+  }
   window.location.replace(site_properties.home_page);
 };
 

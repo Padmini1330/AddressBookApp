@@ -1,51 +1,37 @@
 let isUpdate = false;
-let contactObj = {};
+let contactObject = {};
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  validateName();
-  validatePhoneNumber();
-  validateAddress();
-  validateZipcode();
+    const name = document.querySelector("#name");
+    name.addEventListener("input", function () {
+      if (name.value.length == 0) {
+        setTextValue(".name-error", "");
+        return;
+      }
+      try {
+        checkName(name.value);
+        setTextValue(".name-error", "");
+      } catch (error) {
+        setTextValue(".name-error", error);
+      }
+    });
 
-  checkForUpdate();
-  localStorage.removeItem('contactEdit');
-});
-
-const validateName = () => {
-  const name = document.querySelector("#name");
-  name.addEventListener("input", function () {
-    if (name.value.length == 0) {
-      setTextValue(".name-error", "");
-      return;
-    }
-    try {
-      checkName(name.value);
-      setTextValue(".name-error", "");
-    } catch (error) {
-      setTextValue(".name-error", error);
-    }
-  });
-};
-
-const validatePhoneNumber = () => {
-  const phoneNumber = document.querySelector("#phoneNumber");
-  phoneNumber.addEventListener("input", function () {
-    if (phoneNumber.value.length == 0) {
-      setTextValue(".tel-error", "");
-      return;
-    }
-    try {
-      checkPhoneNumber(phoneNumber.value);
-      setTextValue(".tel-error", "");
-    } catch (error) {
-      setTextValue(".tel-error", error);
-    }
-  });
-};
-
-const validateAddress = () => {
-  const address = document.querySelector("#address");
-  address.addEventListener("input", function () {
+    const phoneNumber = document.querySelector("#phoneNumber");
+    phoneNumber.addEventListener("input", function () {
+      if (phoneNumber.value.length == 0) {
+        setTextValue(".tel-error", "");
+        return;
+      }
+      try {
+        checkPhoneNumber(phoneNumber.value);
+        setTextValue(".tel-error", "");
+      } catch (error) {
+        setTextValue(".tel-error", error);
+      }
+    });
+  
+    const address = document.querySelector("#address");
+    address.addEventListener("input", function () {
     if (address.value.length == 0) {
       setTextValue(".address-error", "");
       return;
@@ -57,9 +43,7 @@ const validateAddress = () => {
       setTextValue(".address-error", error);
     }
   });
-};
-
-const validateZipcode = () => {
+  
   const zip = document.querySelector("#zip");
   zip.addEventListener("input", function () {
     if (zip.value.length == 0) {
@@ -73,41 +57,55 @@ const validateZipcode = () => {
       setTextValue(".zip-error", error);
     }
   });
-};
+
+  checkForUpdate();
+  localStorage.removeItem('contactEdit');
+});
 
 const save = (event) => {
   event.preventDefault();
   event.stopPropagation();
-  try {
+  try 
+  {
     setContactObject();
-    if (site_properties.use_local_storage.match("true")) {
+    if (site_properties.use_local_storage.match("true")) 
+    {
       createAndUpdateLocalStorage();
       resetForm();
       window.location.replace(site_properties.home_page);
     }
-    else {
+    else 
+    {
       createAndUpdateServer();
     }
-
-  } catch (error) {
-    alert(error);
+  } 
+  catch (e) 
+  {
+    console.log(e);
+      return;
   }
 };
 
 const createAndUpdateLocalStorage = () => {
   let contactList = JSON.parse(localStorage.getItem("ContactList"));
-  if (contactList != undefined) {
-    let contactData = contactList.find(contact => contact.id == contactObj.id);
-    if (!contactData) {
-      contactList.push(contactObj);
-    } else {
+  if (contactList != undefined) 
+  {
+    let contactData = contactList.find(contact => contact.id == contactObject.id);
+    if (!contactData) 
+    {
+      contactList.push(contactObject);
+    } 
+    else 
+    {
       const index = contactList
         .map(contact => contact.id)
         .indexOf(contactData.id);
-      contactList.splice(index, 1, contactObj);
+      contactList.splice(index, 1, contactObject);
     }
-  } else {
-    contactList = [contactObj];
+  } 
+  else 
+  {
+    contactList = [contactObject];
   }
   localStorage.setItem("ContactList", JSON.stringify(contactList));
 };
@@ -115,13 +113,17 @@ const createAndUpdateLocalStorage = () => {
 const createAndUpdateServer = () => {
   let postUrl = site_properties.server_url;
   let methodCall = "POST";
-  if (isUpdate) {
+  if (isUpdate) 
+  {
     methodCall = "PUT";
-    postUrl = postUrl + contactObj.id.toString();
+    postUrl = postUrl + contactObject.id.toString();
+    console.log(contactObject.id);
   }
-  makeServiceCall(methodCall, postUrl, true, contactObj)
-    .then((responseText) => {
+  makeServiceCall(methodCall, postUrl, true, contactObject)
+    .then(() => {
+      console.log("before reset form");
       resetForm();
+      console.log("after reset form");
       window.location.replace(site_properties.home_page);
     })
     .catch((error) => {
@@ -129,16 +131,18 @@ const createAndUpdateServer = () => {
     })
 };
 
+
 const setContactObject = () => {
-  if (!isUpdate && site_properties.use_local_storage.match("true")) {
-    contactObj.id = generateId();
+  if (!isUpdate && site_properties.use_local_storage.match("true")) 
+  {
+    contactObject.id = generateId();
   }
-  contactObj._name = getInputValueById("#name");
-  contactObj._phoneNumber = getInputValueById("#phoneNumber");
-  contactObj._address = getInputValueById("#address");
-  contactObj._city = getInputValueById("#city");
-  contactObj._state = getInputValueById("#state");
-  contactObj._zip = getInputValueById("#zip");
+  contactObject._name = getInputValueById("#name");
+  contactObject._phoneNumber = getInputValueById("#phoneNumber");
+  contactObject._address = getInputValueById("#address");
+  contactObject._city = getInputValueById("#city");
+  contactObject._state = getInputValueById("#state");
+  contactObject._zip = getInputValueById("#zip");
 
 };
 
@@ -169,17 +173,17 @@ const checkForUpdate = () => {
   if (!isUpdate) {
     return;
   }
-  contactObj = JSON.parse(contactJson);
+  contactObject = JSON.parse(contactJson);
   setForm();
 };
 
 const setForm = () => {
-  setValue("#name", contactObj._name);
-  setValue("#phoneNumber", contactObj._phoneNumber);
-  setValue("#address", contactObj._address);
-  setValue("#city", contactObj._city);
-  setValue("#state", contactObj._state);
-  setValue("#zip", contactObj._zip);
+  setValue("#name", contactObject._name);
+  setValue("#phoneNumber", contactObject._phoneNumber);
+  setValue("#address", contactObject._address);
+  setValue("#city", contactObject._city);
+  setValue("#state", contactObject._state);
+  setValue("#zip", contactObject._zip);
 };
 
 const setValue = (id, value) => {

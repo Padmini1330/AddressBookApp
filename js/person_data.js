@@ -1,78 +1,90 @@
-class Contact 
-{
+class Contact {
+  
     id;
-    
+  
     get name() 
     {
-        return this._name;
+      return this._name;
     }
-    set name(value) 
+    set name(name) 
     {
-        if(NAME_REGEX.test(value)){
-            this._name = value;
-        }else {
-            throw "Name is incorrect";
-        }
+      if (nameRegex.test(name)) 
+      {
+        this._name = name;
+      } else 
+      {
+        throw "NAME is Invalid";
+      }
     }
-
+  
     get phoneNumber() 
     {
-        return this._phoneNumber;
+      return this._phoneNumber;
     }
-    set phoneNumber(value) 
+    set phoneNumber(phoneNumber) 
     {
-        if (PHONE_NUMBER_REGEX.test(value)) 
-        {
-            this._phoneNumber = value;
-        }
-        else throw "Phone Number is incorrect";
+      if (phoneNumberRegex.test(phoneNumber)) 
+      {
+        this._phoneNumber = phoneNumber;
+      } 
+      else 
+      {
+        throw "PHONE NUMBER is Invalid";
+      }   
     }
+  
     get address() 
     {
-        return this._address;
+      return this._address;
     }
-    set address(value) 
+    set address(address) 
     {
-        if (ADDRESS_REGEX.test(value)) 
-        {
-            this._address = value;
-        }
-        else throw "Address is incorrect";
+      if (addressRegex.test(address)) 
+      {
+        this._address = address;
+      } 
+      else 
+      {
+        throw "ADDRESS is Invalid";
+      }
     }
+    
     get city() 
     {
-        return this._city;
+      return this._city;
     }
-    set city(value) 
+    set city(city) 
     {
-        this._city = value;
+      this._city = city;
     }
+    
     get state() 
     {
-        return this._state;
+      return this._state;
     }
-    set state(value) 
+    set state(state) 
     {
-        this._state = value;
+      this._state = state;
     }
+  
     get zip() 
     {
-        return this._zip;
+      return this._zip;
     }
-    set zip(value) 
+    set zip(zip) 
     {
-        if (ZIP_REGEX.test(value)) 
-        {
-            this._zip = value;
-        }
-        else throw "Zip code is incorrect";        
+      if (zipRegex.test(zip)) 
+      {
+        this._zip = zip;
+      }
+      else 
+      {
+        throw "ZIP is Invalid!";
+      }
     }
-
-    toString() 
-    {
-        return 'name=' + this._name + 
-        ', phone number=' + this._phoneNumber + ', address=' + this._address + ', city=' + this._city + 
-        ', state=' + this._state + ', zip code=' + this._zip;
+  
+    toString(){
+        return `id: ${this.id} \nName: ${this.name} \nPhone Number: ${this.phoneNumber} \nAddress: ${this.address} \nCity: ${this.city} \nState: ${this.state} \nZip:  ${this.zip}`;
     }
-
-}
+  
+  }
