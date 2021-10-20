@@ -40,3 +40,16 @@ const createInnerHtml = () => {
 const getContactFromLocalStorage = () =>{
   return localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : []
 }
+
+const remove = (node) => {
+    let removeContact = contactList.find(contact => contact._id == node.id);
+    if (!removeContact) {
+      return;
+    }
+    const index = contactList.map(contact => contact._id).indexOf(removeContact._id);
+    contactList.splice(index, 1);
+    localStorage.setItem("ContactList", JSON.stringify(contactList));
+    document.querySelector(".contact-count").textContent = contactList.length;
+    createInnerHtml();
+    window.location.replace("../pages/address_book_homepage.html");
+  }
