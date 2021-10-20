@@ -1,13 +1,7 @@
 class Contact 
 {
-    get id() 
-    {
-        return this._id;
-    }
-    set id(value) 
-    {
-        this._id = value;
-    }
+    id;
+    
     get name() 
     {
         return this._name;
