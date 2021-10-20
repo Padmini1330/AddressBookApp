@@ -166,6 +166,7 @@ textarea {
 .inner-rows {
     flex-direction: row;
     flex-wrap: wrap;
+    width:122%;
 }
 
 select {
@@ -251,4 +252,9 @@ select {
         flex-direction: row !important;
         font-size: 12px !important;
     }
+    .resetButton,.submitButton
+    {
+        margin-left: 40% !important;
+    }
+
 }
