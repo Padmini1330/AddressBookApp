@@ -1,26 +1,30 @@
 let contactList;
-
 window.addEventListener("DOMContentLoaded", (event) => {
-  contactList = getContactFromLocalStorage();
+  contactList = getContactFromStorage();
   document.querySelector(".contact-count").textContent = contactList.length;
   createInnerHtml();
 });
+
+const getContactFromStorage = () => {
+  return localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : [];
+}
 
 const createInnerHtml = () => {
   if (contactList.length == 0) {
     return;
   }
   const headerHtml = `<tr>
-    <th>Full Name</th>
+    <th>Name</th>
     <th>Address</th>
     <th>City</th>
     <th>State</th>
     <th>Zip Code</th>
     <th>Phone Number</th>
     </tr>`;
+
   let innerHtml = `${headerHtml}`;
-  for (const contact of contactList) 
-  {
+
+  for (const contact of contactList) {
     innerHtml = `${innerHtml} 
         <tr>
         <td>${contact._name}</td>
@@ -30,36 +34,32 @@ const createInnerHtml = () => {
         <td>${contact._zip}</td>
         <td>${contact._phoneNumber}</td>
         <td>
-            <img src="../assets/icons/delete-black-18dp.svg" alt="delete" id="${contact._id}" onclick="remove(this)">
-            <img src="../assets/icons/create-black-18dp.svg" alt="update" id="${contact._id}" onclick="update(this)">
+            <img src="../assets/icons/delete.svg" alt="delete" id="${contact.id}" onclick="remove(this)">
+            <img src="../assets/icons/edit.svg" alt="update" id="${contact.id}" onclick="update(this)">
         </td>
         </tr>`;
   }
   document.querySelector("#table-display").innerHTML = innerHtml;
 };
 
-const getContactFromLocalStorage = () =>{
-  return localStorage.getItem('ContactList') ? JSON.parse(localStorage.getItem('ContactList')) : []
-}
-
 const remove = (node) => {
-    let removeContact = contactList.find(contact => contact._id == node.id);
+    let removeContact = contactList.find(contact => contact.id == node.id);
     if (!removeContact) {
       return;
     }
-    const index = contactList.map(contact => contact._id).indexOf(removeContact._id);
+    const index = contactList.map(contact => contact.id).indexOf(removeContact.id);
     contactList.splice(index, 1);
     localStorage.setItem("ContactList", JSON.stringify(contactList));
     document.querySelector(".contact-count").textContent = contactList.length;
     createInnerHtml();
     window.location.replace(site_properties.home_page);
   }
-
+  
   const update = (node) => {
-    let contactToEdit = contactList.find(editContact => editContact._id == node.id);
-    if (!contactToEdit) {
+    let contactEdit = contactList.find(editContact => editContact.id == node.id);
+    if (!contactEdit) {
       return;
     }
-    localStorage.setItem('contactEdit', JSON.stringify(contactToEdit));
+    localStorage.setItem('contactEdit', JSON.stringify(contactEdit));
     window.location.replace(site_properties.add_contacts_page);
   }
