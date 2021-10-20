@@ -1,3 +1,5 @@
+let isUpdate = false;
+
 window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     const textError = document.querySelector('.text-error');
@@ -85,6 +87,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             zipError.textContent = e;
         }
     });
+
+    checkForUpdate();
+    localStorage.removeItem('contactEdit');
+
 });
 const save = () => {
     try 
@@ -145,6 +151,25 @@ const createAndUpdateStorage = (contact) => {
     setTextValue(".zip-error", "");
   };
   
+  const checkForUpdate = () => {
+    const contactJson = localStorage.getItem('contactEdit');
+    isUpdate = contactJson ? true : false;
+    if(!isUpdate){
+      return;
+    }
+    contactObj = JSON.parse(contactJson);
+    setForm();
+  }
+  
+  function setForm() {
+    setValue("#name",contactObj._name);
+    setValue("#phonenumber", contactObj._phoneNumber);
+    setValue("#address", contactObj._address);
+    setValue("#city", contactObj._city);
+    setValue("#state", contactObj._state);
+    setValue("#zip", contactObj._zip);
+  }
+
 const setValue = (id, value) => {
     const element = document.querySelector(id);
     element.value = value;
